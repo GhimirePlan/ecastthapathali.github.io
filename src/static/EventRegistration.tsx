@@ -50,26 +50,25 @@ const EventRegistration: React.FC = () => {
   const [college, setCollege] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
-  const [articleTitle, setArticleTitle] = useState<string>("");
-  const [chosenTheme, setChosenTheme] = useState<string>("");
-  const [abstract, setAbstract] = useState<string>("");
+  const [chosenYear, setChosenYear] = useState<string>("");
   const [confirmation, setConfirmation] = useState<boolean>(false);
   const [agreement, setAgreement] = useState<boolean>(false);
   const [document, setDocument] = useState<File | null>(null);
-  const [inspiration, setInspiration] = useState<string>("");
-  const [contribution, setContribution] = useState<string>("");
-  const [wordcount, setWordcount] = useState<string>("");
+  const [howDidYouHear, setHowDidYouHear] = useState<string>("");
+  const [reason, setReason] = useState<string>("");
+  const [experience, setExperience] = useState<string>("");
 
   useEffect(() => {
     const events: Event[] = [
       {
-        id: "article-submission",
-        title: "Article Writing Competition",
-        rules: "https://bit.ly/ecast-article-guidelines",
+        id: "backend-workshop",
+        title: "Django: A 7-Day Backend Workshop",
+        rules: "https://bit.ly/ecast-backend-guidelines",
         description:
-          "ECAST is excited to announce its Article Writing Competition, a unique opportunity for aspiring writers and tech enthusiasts to explore the intersection of creativity and technology.",
+          "A 7-day intensive workshop to master Django and build powerful backend applications with hands-on projects and expert guidance.",
       },
       // Add more events as needed
+      
     ];
 
     const selectedEvent = events.find((e) => e.id === eventId);
@@ -84,21 +83,19 @@ const EventRegistration: React.FC = () => {
     formData.append("college_name", college);
     formData.append("email", email);
     formData.append("phone", phone);
-    formData.append("title", articleTitle);
-    formData.append("theme", chosenTheme);
-    formData.append("word_count", wordcount);
-    formData.append("abstract", abstract);
+    formData.append("year", chosenYear);
+    formData.append("experience", experience);
+    formData.append("reason", reason);
+    formData.append("howDidYouHear", howDidYouHear);
     formData.append("confirmation", confirmation ? "true" : "false");
     formData.append("agreement", agreement ? "true" : "false");
-    formData.append("question_1", inspiration);
-    formData.append("question_2", contribution);
     if (document) {
       formData.append("article_file", document);
     }
 
     try {
       const response = await fetch(
-        "https://ecast.pythonanywhere.com/api/article/form/",
+        "https://ecast.pythonanywhere.com/api/",
         {
           method: "POST",
           body: formData,
@@ -179,7 +176,10 @@ const EventRegistration: React.FC = () => {
                 cursor={false}
               />
               <form onSubmit={handleSubmit} className="rsvp-form w-full">
-                <label className="input-label">Full Name</label>
+                <label className="input-label">
+                  Full Name
+                  <span className="required-field"> *</span>
+                </label>
                 <input
                   type="text"
                   placeholder="Your Name Here"
@@ -189,7 +189,10 @@ const EventRegistration: React.FC = () => {
                   className="input-field"
                 />
                 <div className="form-gap" />
-                <label className="input-label">College/University</label>
+                <label className="input-label">
+                  College/University Name
+                  <span className="required-field"> *</span>
+                </label>
                 <input
                   type="text"
                   placeholder="Your Campus Name Here"
@@ -199,7 +202,10 @@ const EventRegistration: React.FC = () => {
                   className="input-field"
                 />
                 <div className="form-gap" />
-                <label className="input-label">Email</label>
+                <label className="input-label">
+                  Email
+                  <span className="required-field"> *</span>
+                </label>
                 <input
                   type="email"
                   placeholder="ramshyam@gmail.com"
@@ -209,7 +215,10 @@ const EventRegistration: React.FC = () => {
                   className="input-field"
                 />
                 <div className="form-gap" />
-                <label className="input-label">Contact</label>
+                <label className="input-label">
+                  Contact
+                  <span className="required-field"> *</span>
+                </label>
                 <input
                   type="tel"
                   placeholder="+977 9800000000"
@@ -219,107 +228,115 @@ const EventRegistration: React.FC = () => {
                   className="input-field"
                 />
                 <div className="form-gap" />
-                <label className="input-label">Title of the Article</label>
-                <input
-                  type="text"
-                  placeholder="Title of the Article"
-                  value={articleTitle}
-                  onChange={(e) => setArticleTitle(e.target.value)}
-                  required
-                  className="input-field"
-                />
-                <div className="form-gap" />
-                <label className="input-label">Word Count</label>
-                <input
-                  type="word_count"
-                  placeholder="1500"
-                  value={wordcount}
-                  onChange={(e) => setWordcount(e.target.value)}
-                  required
-                  className="input-field"
-                />
-                <div className="form-gap" />
-                <label className="input-label">Chosen Theme</label>
+                <label className="input-label">
+                  Year of Study
+                  <span className="required-field"> *</span>
+                </label>
                 <select
                   className="input-field"
-                  value={chosenTheme}
-                  onChange={(e) => setChosenTheme(e.target.value)}
+                  value={chosenYear}
+                  onChange={(e) => setChosenYear(e.target.value)}
                   required
                 >
                   <option className="text-black" value="">
-                    Select Theme
+                    Select Year
                   </option>
-                  <option className="text-black" value="Emerging Technologies">
-                    Emerging Technologies
+                  <option className="text-black" value="1st Year">
+                    1st Year
                   </option>
-                  <option
-                    className="text-black"
-                    value="Artificial Intelligence and Machine Learning"
-                  >
-                    Artificial Intelligence and Machine Learning
+                  <option className="text-black" value="2nd Year">
+                    2nd Year
                   </option>
-                  <option
-                    className="text-black"
-                    value="Cybersecurity and Privacy"
-                  >
-                    Cybersecurity and Privacy
+                  <option className="text-black" value="3rd Year">
+                    3rd Year
                   </option>
-                  <option
-                    className="text-black"
-                    value="Innovation and Future Trends"
-                  >
-                    Innovation and Future Trends
+                  <option className="text-black" value="4th Year">
+                    4th Year
                   </option>
-                  <option className="text-black" value="Technology in Society">
-                    Technology in Society
+                  <option className="text-black" value="School / +2 Level">
+                    School / +2 Level
                   </option>
                 </select>
+                <div className="form-gap" />
+                <label className="input-label">
+                  Prior Experience with Python or Django
+                  <span className="required-field"> *</span>
+                </label>
+                <div className="radio-group">
+                  <label className="radio-container">
+                    Yes
+                    <input
+                      type="radio"
+                      value="yes"
+                      checked={experience === "yes"}
+                      onChange={(e) => setExperience(e.target.value)}
+                      required
+                    />
+                    <span className="checkmark"></span>
+                  </label>
+                  <label className="radio-container">
+                    No
+                    <input
+                      type="radio"
+                      value="no"
+                      checked={experience === "no"}
+                      onChange={(e) => setExperience(e.target.value)}
+                      required
+                    />
+                    <span className="checkmark"></span>
+                  </label>
+                </div>
 
                 <div className="form-gap" />
                 <label className="input-label">
-                  Abstract or Summary of the Article
+                  Why do you want to join this Workshop?
+                  <span className="required-field"> *</span>
                 </label>
                 <textarea
-                  placeholder="Your Summary Here"
-                  value={abstract}
-                  onChange={(e) => setAbstract(e.target.value)}
+                  placeholder="Your brief explanation here"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
                   required
                   className="input-field"
                 />
                 <div className="form-gap" />
                 <label className="input-label">
-                  What inspired you to choose this particular theme for your
-                  article?
+                  How did you hear about the Workshop?
+                  <span className="required-field"> *</span>
                 </label>
-                <textarea
-                  placeholder="Your Answer"
-                  value={inspiration}
-                  onChange={(e) => setInspiration(e.target.value)}
-                  required
+                <select
                   className="input-field"
-                />
-                <div className="form-gap" />
-                <label className="input-label">
-                  How do you think your article contributes to understanding or
-                  exploring the chosen topic in a unique way?
-                </label>
-                <textarea
-                  placeholder="Your Answer"
-                  value={contribution}
-                  onChange={(e) => setContribution(e.target.value)}
+                  value={howDidYouHear}
+                  onChange={(e) => setHowDidYouHear(e.target.value)}
                   required
-                  className="input-field"
-                />
+                >
+                  <option className="text-black" value="">
+                    Select an option
+                  </option>
+                  <option className="text-black" value="Social Media">
+                    Social Media
+                  </option>
+                  <option
+                    className="text-black"
+                    value="Recommended by a Professor"
+                  >
+                    Recommended by a Professor
+                  </option>
+                  <option className="text-black" value="A Friend or Classmate">
+                    A Friend or Classmate
+                  </option>
+                  <option className="text-black" value="Others">
+                    Others
+                  </option>
+                </select>
                 <div className="form-gap" />
-                <label className="input-label">
-                  Upload your document ( .doc , .docx )
-                </label>
+                <label className="input-label">Upload your CV ( .pdf )</label>
                 <input
                   type="file"
                   onChange={handleFileChange}
                   required
                   className="input-field"
-                  accept=".doc,.docx"
+                  accept=".pdf"
                 />
                 <div className="form-gap" />
                 <label className="checkbox-label">
@@ -329,8 +346,7 @@ const EventRegistration: React.FC = () => {
                     onChange={(e) => setConfirmation(e.target.checked)}
                     required
                   />
-                  &nbsp; I confirm that the article is my own work and has not
-                  been previously published.
+                  &nbsp; I confirm my participation in the Django 7-Day Backend Workshop.
                 </label>
                 <label className="checkbox-label">
                   <input
@@ -339,8 +355,7 @@ const EventRegistration: React.FC = () => {
                     onChange={(e) => setAgreement(e.target.checked)}
                     required
                   />
-                  &nbsp; I agree to the competition rules, including plagiarism
-                  guidelines.
+                  &nbsp; I acknowledge that I have read and agree to the guidelines attached.
                 </label>
                 <div className="submit-container">
                   <button type="submit" className="submit-button my-5">

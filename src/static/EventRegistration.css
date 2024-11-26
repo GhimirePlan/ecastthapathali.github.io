@@ -62,6 +62,10 @@
   outline: none;
 }
 
+.required-field {
+  color: red;
+  font-weight: bold;
+}
 .form-gap {
   margin: 10px 0;
 }
@@ -168,3 +172,71 @@
   border-radius: 5px;
   z-index: 1000;
 }
+
+/* Radio button */
+.radio-group {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.radio-container {
+  position: relative;
+  display: inline-block;
+  font-size: 1.1rem;
+  color: #f5f5f5;
+  font-weight: 500;
+  padding-left: 30px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.radio-container input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.radio-container .checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: #eee;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.radio-container input[type="radio"]:checked + .checkmark {
+  background-color: #007bff; 
+}
+
+.radio-container .checkmark::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+.radio-container input[type="radio"]:checked + .checkmark::after {
+  background-color: #fff; 
+}
+
+.radio-container:hover .checkmark {
+  background-color: #ccc;
+}
+
+.radio-container:hover {
+  color: #007bff;
+}
+
+

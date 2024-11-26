@@ -7,8 +7,8 @@ import comingsoon from "./EventsImages/comingsoon.png";
 const UpcomingEvents = () => {
   const upcomingEvents = [
     {
-      id: "coming-soon",
-      topic: "Coming Soon",
+      id: "backend-workshop",
+      topic: "Backend Workshop",
       image: comingsoon,
     },
     {
